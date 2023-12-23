@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const connectDb = require("./utils/db");
 const userRoutes = require("./routes/userRoutes")
+const jobRoutes = require("./routes/jobRoutes")
 const errorMiddleware = require("./middlewares/errorMiddleware")
 const app = express();
 
@@ -11,6 +12,9 @@ app.use(express.json());
 
 // Routes
 app.use("/api/users", userRoutes);
+app.use("/api/jobs", jobRoutes);
+
+
 
 // Health Check Route
 app.get("/", (req, res) => {
