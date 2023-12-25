@@ -27,12 +27,12 @@ const registerUser = async (req, res, next) => {
     await newUser.save();
 
     // Generate a JWT token for the registered user
-    const token = generateToken(newUser._id);
+    const token = generateToken(newUser._id, newUser.name);
 
     // Send success response with token
     return res
       .status(201)
-      .json({ message: "User registered successfully", token });
+      .json({ message: "User registered successfully", token, recruiterName: newUser.name });
   } catch (error) {
     next(error);
   }
@@ -64,10 +64,10 @@ const loginUser = async (req, res, next) => {
     }
 
     // Generate a JWT token for the authenticated user
-    const token = generateToken(user._id);
+    const token = generateToken(user._id, user.name);
 
     // Send the token as a response upon successful login
-    return res.status(200).json({ message: "Login successful", token });
+    return res.status(200).json({ message: "Login successful", token, recruiterName: user.name });
   } catch (error) {
     next(error);
   }
